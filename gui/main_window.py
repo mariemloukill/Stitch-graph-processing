@@ -1,12 +1,8 @@
-import sys
-from PyQt5.QtWidgets import (
-    QApplication, QMainWindow, QWidget, QVBoxLayout, QPushButton,
-    QLabel, QComboBox, QFileDialog, QLineEdit, QFormLayout, QSplitter, QTextEdit, QSpacerItem, QSizePolicy, QMessageBox
-)
+from PyQt5.QtWidgets import QMainWindow,QWidget, QVBoxLayout, QPushButton, QLabel, QComboBox, QFileDialog, QLineEdit, QFormLayout, QSplitter, QTextEdit, QSpacerItem, QSizePolicy, QMessageBox
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont, QColor
+from PyQt5.QtGui import QFont
 from utils.file_utils import verify_edgelist
-from ml.model import choose_graph_system
+from ml.model import predict_best_system, extract_graph_features
 from docker_manager.docker_utils import run_docker_container
 
 class MainWindow(QMainWindow):
@@ -120,8 +116,13 @@ class MainWindow(QMainWindow):
         selected_algorithm = self.algorithm_combo.currentText()
         self.progress_text.append(f"Running {selected_algorithm} algorithm...")
 
+        # Extract features from the uploaded file
+        file_path = self.file_label.text().split(":", 1)[-1].strip()
+        num_edges, num_nodes, size_gb = extract_graph_features(file_path)
+        self.progress_text.append(f"Extracted features - Edges: {num_edges}, Nodes: {num_nodes}, Size: {size_gb:.2f} GB")
+
         self.progress_text.append("Selecting the best graph processing system...")
-        system = choose_graph_system()
+        system = predict_best_system(selected_algorithm, num_edges, num_nodes, size_gb)
         self.progress_text.append(f"Chosen system: {system}")
 
         self.progress_text.append("Starting Docker container...")
