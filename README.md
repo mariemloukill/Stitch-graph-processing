@@ -1,6 +1,6 @@
 # Stitch Graph Processing Interface
 
-Welcome to the **Stitch Graph Processing Interface**! This desktop application provides an intuitive way to upload an edgelist file, choose a graph algorithm to execute on the file, and input relevant parameters. The interface is designed using PyQt/PySide to ensure a seamless user experience.
+Welcome to the **Stitch Graph Processing Interface**! This desktop application provides an intuitive way to upload an edgelist file, choose a graph algorithm to execute on the file, and input relevant parameters. The interface is designed using PyQt to ensure a seamless user experience.
 
 ## Table of Contents
 
@@ -129,4 +129,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## Acknowledgements
 
 - Thanks to all contributors for their support and collaboration.
-- Special thanks to the PyQt and PySide communities for their excellent tools and resources.
+- Special thanks to the PyQt communities for their excellent tools and resources.
