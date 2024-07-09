@@ -85,43 +85,49 @@ class MainWindow(QMainWindow):
             self.source_node_input = QLineEdit()
             self.input_section.add_parameter("Source Node:", self.source_node_input)
 
+
     def run_algorithm(self):
+        file_path = self.input_section.file_label.text().split(":", 1)[-1].strip()
+        num_vertices = self.num_nodes  # Dynamic parameter
+        source_node = None  # Initialize source node
+
         selected_algorithm = self.input_section.algorithm_combo.currentText()
+        iterations = None
+
         if selected_algorithm == "Page Rank":
             if not self.iterations_input.text().isdigit():
                 show_message_box("Error", "Number of Iterations should be a valid number.")
                 return
             iterations = int(self.iterations_input.text())
             if abs(iterations - 10) < abs(iterations - 20):
-                selected_algorithm = "PR10"
+                selected_algorithm = "PageRank10"
             else:
-                selected_algorithm = "PR20"
+                selected_algorithm = "PageRank20"
         elif selected_algorithm == "Connected Components":
-            selected_algorithm = "CC"
+            selected_algorithm = "ConnectedComponent"
         elif selected_algorithm == "Triangle Counting":
-            selected_algorithm = "TC"
-        elif selected_algorithm == "Minimum Spanning Forest":
-            selected_algorithm = "MinimumSpanningForest"
-        elif selected_algorithm == "Community Detection":
-            selected_algorithm = "CommunityDetection"
-        elif selected_algorithm == "Approximate Diameter":
-            selected_algorithm = "appr"
-        elif selected_algorithm == "Betweenness Centrality":
-            if not self.source_node_input.text().isdigit():
-                show_message_box("Error", "Source Node should be a valid number.")
-                return
-            selected_algorithm = "BC"
-        elif selected_algorithm == "Maximal Independent Set":
-            selected_algorithm = "MIS"
-        elif selected_algorithm == "Radii Estimation":
-            selected_algorithm = "Radii"
+            selected_algorithm = "TriangleCounting"
         elif selected_algorithm == "BFS":
             if not self.source_node_input.text().isdigit():
                 show_message_box("Error", "Source Node should be a valid number.")
                 return
-        elif selected_algorithm == "Select":
-            show_message_box("Error", "Please select a valid algorithm.")
-            return
+            source_node = self.source_node_input.text()
+        elif selected_algorithm == "Betweenness Centrality":
+            if not self.source_node_input.text().isdigit():
+                show_message_box("Error", "Source Node should be a valid number.")
+                return
+            source_node = self.source_node_input.text()
+            selected_algorithm = "BC"
+        elif selected_algorithm == "Approximate Diameter":
+            selected_algorithm = "appr"
+        elif selected_algorithm == "Community Detection":
+            selected_algorithm = "CommunityDetection"
+        elif selected_algorithm == "Minimum Spanning Forest":
+            selected_algorithm = "MinimumSpanningForest"
+        elif selected_algorithm == "Maximal Independent Set":
+            selected_algorithm = "MIS"
+        elif selected_algorithm == "Radii Estimation":
+            selected_algorithm = "Radii"
 
         self.progress_section.append_progress(f"Running {selected_algorithm} algorithm...")
 
@@ -143,9 +149,18 @@ class MainWindow(QMainWindow):
         self.progress_section.append_progress("Selecting the best graph processing system...")
         system = predict_best_system(selected_algorithm, num_edges, num_nodes, size_gb)
         self.progress_section.append_progress(f"Chosen system: {system}")
-
+        
         self.progress_section.append_progress("Starting Docker container...")
-        result = run_docker_container(system, selected_algorithm)
+        stdout, stderr = run_docker_container(system, selected_algorithm, file_path, num_nodes, iterations, source_node)
         self.progress_section.append_progress("Docker container finished execution.")
 
+        if stderr:
+            self.progress_section.append_progress(f"Error: {stderr}")
+        else:
+            self.progress_section.append_progress(f"Result: {stdout}")
+
+        # Assuming the output file is named consistently
+        output_file_path = f"docker_manager/output/output_{system.lower()}.txt"
+        with open(output_file_path, "r") as output_file:
+            result = output_file.read()
         self.output_section.set_result(result)
