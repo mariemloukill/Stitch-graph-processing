@@ -16,6 +16,9 @@ Welcome to the **Stitch Graph Processing Interface**! This desktop application p
 ## Features
 
 - **User-Friendly Interface**: An easy-to-navigate GUI for uploading edgelists and running graph algorithms.
+- **AI-Driven System Selection**: A customized KNN model predicts the best system to run the chosen algorithm on the given graph, considering five existing systems: GraphChi, Ligra, Mmap, GridGraph, and GPOP.
+- **Context-Aware and Adaptive**: Chooses the optimal system based on the graph characteristics and the desired algorithm, supporting in-memory, out-of-core, and hybrid systems.
+- **Automated Execution**: Runs a Docker container of the designated system to execute the chosen algorithm, returns the result, and then kills the container to prevent technical hassles for the user.
 - **Progress Tracking**: A progress section to display real-time messages during the algorithm's execution.
 - **Parameter Input**: Input fields for algorithm parameters with validation to ensure correctness.
 - **Aesthetic Design**: A visually appealing layout divided into input and output sections.
@@ -25,8 +28,8 @@ Welcome to the **Stitch Graph Processing Interface**! This desktop application p
 ### Prerequisites
 
 - Python 3.7+
-- PyQt5
-- 
+- PyQt5 or PySide2
+- Docker
 - Required Python packages (specified in `requirements.txt`)
 
 ### Steps
@@ -65,7 +68,7 @@ Welcome to the **Stitch Graph Processing Interface**! This desktop application p
     Choose the graph algorithm from the dropdown menu and input any required parameters.
 
 4. **Run the Algorithm**:
-    Click on the "Run" button to execute the selected algorithm. Monitor the progress in the "Progress" section and view the results in the output section.
+    Click on the "Run" button to execute the selected algorithm. The KNN model will predict the best system for execution. A Docker container of the designated system will be run, the algorithm will be executed, and the results will be returned to the user. Monitor the progress in the "Progress" section and view the results in the output section.
 
 ## Graph Algorithms Supported
 
@@ -82,3 +85,48 @@ Welcome to the **Stitch Graph Processing Interface**! This desktop application p
 
 ## Project Structure
 
+Stitch-graph-processing/
+│
+├── main.py # Entry point for the application
+├── requirements.txt # Required Python packages
+├── ui/
+│ ├── main_window.ui # UI design file
+│ └── ... # Other UI related files
+├── algorithms/
+│ ├── connected_components.py
+│ ├── page_rank.py
+│ └── ... # Other algorithm implementations
+├── utils/
+│ ├── file_validation.py # File validation utilities
+│ └── ... # Other utility scripts
+├── models/
+│ ├── knn_model.pkl # Pre-trained KNN model
+│ ├── scaler.pkl # Scaler for input features
+│ ├── label_encoder_workload.pkl # Label encoder for workloads
+│ └── ... # Other model-related files
+├── docker/
+│ ├── Dockerfile.graphchi # Dockerfile for GraphChi
+│ ├── Dockerfile.ligra # Dockerfile for Ligra
+│ ├── ... # Dockerfiles for other systems
+└── README.md # This file
+
+## Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make your changes and commit them (`git commit -m 'Add new feature'`).
+4. Push to the branch (`git push origin feature-branch`).
+5. Open a Pull Request.
+
+Please ensure your code adheres to the project's coding standards and includes relevant tests.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+## Acknowledgements
+
+- Thanks to all contributors for their support and collaboration.
+- Special thanks to the PyQt and PySide communities for their excellent tools and resources.
