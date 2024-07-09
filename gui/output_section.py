@@ -14,7 +14,7 @@ class OutputSection(QWidget):
         self.layout.addWidget(self.result_label)
 
         self.result_text = QTextEdit()
-        self.result_text.setFont(QFont("Helvetica", 12))
+        self.result_text.setFont(QFont("Helvetica", 14))
         self.result_text.setReadOnly(True)
         self.layout.addWidget(self.result_text)
 

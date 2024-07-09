@@ -12,19 +12,19 @@ SOURCE_NODE=$5  # Add source node as an argument
 echo $FILE_NAME > output_ligra.txt
 # Run the appropriate algorithm
 case $ALGORITHM in
-    "ConnectedComponent")
+    "CC")
        ./algorithms/Components -rounds 0 ${FILE_NAME}.adj >> output_ligra.txt
         ;;
     "MIS")
        ./algorithms/MIS -rounds 1 ${FILE_NAME}.adj >> output_ligra.txt
         ;;
-    "PageRank10")
+    "PR10")
         ./algorithms/PageRank -maxiters 10 -rounds 1 ${FILE_NAME}.adj >> output_ligra.txt
         ;;
-    "PageRank20")
+    "PR20")
         ./algorithms/PageRank -maxiters 20 -rounds 1 ${FILE_NAME}.adj >> output_ligra.txt
         ;;
-    "TriangleCounting")
+    "TC")
        ./algorithms/Triangle -rounds 1 ${FILE_NAME}.adj >> output_ligra.txt
         ;;
     "BFS")

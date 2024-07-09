@@ -10,22 +10,22 @@ SOURCE_NODE=$5
 FILE_NAME=$(basename $FILE_PATH)
 
 # Start the Docker container
-docker run -itd --name ligra --hostname ligra faroukdrira/ligra:1.1
+docker run -itd --name graphchi --hostname graphchi faroukdrira/pfa-graphchi:1.1
 
 # Copy the input file to the container
-docker cp $FILE_PATH ligra:/$FILE_NAME
+docker cp $FILE_PATH graphchi:/$FILE_NAME
 
 # Copy the run script to the container
-docker cp scripts/run_ligra.sh ligra:/run_ligra.sh
+docker cp scripts/run_graphchi.sh ligra:/run_graphchi.sh
 
 # Make the run script executable
-docker exec ligra chmod +x /run_ligra.sh
+docker exec ligra chmod +x /run_graphchi.sh
 
 # Execute the run script inside the container
-docker exec ligra /run_ligra.sh $FILE_NAME $NUM_VERTICES $ITERATIONS $ALGORITHM $SOURCE_NODE  # Add source node to the command
+docker exec ligra /run_graphchi.sh $FILE_NAME $NUM_VERTICES $ITERATIONS $ALGORITHM $SOURCE_NODE  # Add source node to the command
 
 # Copy the output file from the container to the host
-docker cp ligra:/output_ligra.txt docker_manager/output/
+docker cp ligra:/output_graphchi.txt docker_manager/output/
 
 # Stop and remove the container
 docker stop ligra

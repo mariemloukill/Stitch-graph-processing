@@ -1,16 +1,29 @@
-Index file does not exist, create one now...
-211187--211188
-Done creating index file
-Finished counting outdegree: 82 milliseconds
-Running 10 iterations of pageRank: 116 milliseconds
-pr: 3.447734343353659E-4
-3.2139034010469913E-4
-2.5967019610106945E-4
-1.7623724124860018E-4
-1.7151418433059007E-4
-1.7034553457051516E-4
-1.5686375263612717E-4
-1.5331881877500564E-4
-1.3802191824652255E-4
-1.3670026964973658E-4
-sum: 0.742218
+start counting degree
+done counting degree
+start counting new graph index
+done counting new graph index
+start creating new graph
+done creating new graph
+start sorting new graph
+done sorting new graph
+time of pre-triangle counting: 280 milliseconds
+Running Multi-thread Triangle Counting...
+start waiting
+finish thread of range [184786, 197985)
+finish thread of range [79194, 92393)
+finish thread of range [65995, 79194)
+finish thread of range [39597, 52796)
+finish thread of range [118791, 131990)
+finish thread of range [197985, 211188)
+finish thread of range [0, 13199)
+finish thread of range [26398, 39597)
+finish thread of range [92393, 105592)
+finish thread of range [131990, 145189)
+finish thread of range [105592, 118791)
+finish thread of range [158388, 171587)
+finish thread of range [13199, 26398)
+finish thread of range [52796, 65995)
+finish thread of range [145189, 158388)
+finish thread of range [171587, 184786)
+Number of triangles is 12196217
+Time of triangle counting: 211 milliseconds

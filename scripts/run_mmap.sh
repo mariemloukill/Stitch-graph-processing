@@ -14,16 +14,16 @@ java -jar mmap.jar Convert $FILE_NAME
 
 # Run the appropriate algorithm
 case $ALGORITHM in
-    "ConnectedComponent")
+    "CC")
         java -jar mmap.jar ConnectedComponent ${FILE_NAME}.bin $NUM_VERTICES > output_mmap.txt
         ;;
-    "PageRank10")
+    "PR10")
         java -jar mmap.jar PageRank ${FILE_NAME}.bin $NUM_VERTICES 10 > output_mmap.txt
         ;;
-    "PageRank20")
+    "PR20")
         java -jar mmap.jar PageRank ${FILE_NAME}.bin $NUM_VERTICES 20 > output_mmap.txt
         ;;
-    "TriangleCounting")
+    "TC")
         java -jar mmap.jar TriangleCounting ${FILE_NAME}.bin $NUM_VERTICES > output_mmap.txt
         ;;
     *)

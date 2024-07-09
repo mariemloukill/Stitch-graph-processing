@@ -12,23 +12,23 @@ SOURCE_NODE=$5  # Add source node as an argument
 echo $FILE_NAME > output_ligra.txt
 # Run the appropriate algorithm
 case $ALGORITHM in
-    "ConnectedComponent")
+    "CC")
         ./graphChi-binaries/connectedcomponenents filetype edgelist file ${FILE_NAME} >> output_graphchi.txt
         ;;
     "CommunityDetection")
        ./graphChi-binaries/communitydetection filetype edgelist file ${FILE_NAME} >> output_graphchi.txt
         ;;
-    "PageRank10")
+    "PR10")
         ./graphChi-binaries/pagerank filetype edgelist file ${FILE_NAME} niters 10 >> output_graphchi.txt
         ;;
-    "PageRank20")
+    "PR20")
         ./graphChi-binaries/pagerank filetype edgelist file ${FILE_NAME} niters 20 >> output_graphchi.txt
         ;;
-    "TriangleCounting")
+    "TC")
        ./graphChi-binaries/TriangleCounting filetype edgelist file ${FILE_NAME} niters 10 >> output_graphchi.txt
         ;;
     "MinimumSpanningForest")
-        ./graphChi-binaries/TriangleCounting filetype edgelist file ${FILE_NAME} >> output_graphchi.txt
+        ./graphChi-binaries/MinimumSpanningForest filetype edgelist file ${FILE_NAME} >> output_graphchi.txt
         ;;
     
     *)

@@ -100,13 +100,13 @@ class MainWindow(QMainWindow):
                 return
             iterations = int(self.iterations_input.text())
             if abs(iterations - 10) < abs(iterations - 20):
-                selected_algorithm = "PageRank10"
+                selected_algorithm = "PR10"
             else:
-                selected_algorithm = "PageRank20"
+                selected_algorithm = "PR20"
         elif selected_algorithm == "Connected Components":
-            selected_algorithm = "ConnectedComponent"
+            selected_algorithm = "CC"
         elif selected_algorithm == "Triangle Counting":
-            selected_algorithm = "TriangleCounting"
+            selected_algorithm = "TC"
         elif selected_algorithm == "BFS":
             if not self.source_node_input.text().isdigit():
                 show_message_box("Error", "Source Node should be a valid number.")
@@ -143,7 +143,7 @@ class MainWindow(QMainWindow):
                 return
         else:
             num_edges = self.num_edges
-            num_nodes = self.num_nodes
+            num_nodes = self.num_nodes+1
             size_gb = self.size_gb
 
         self.progress_section.append_progress("Selecting the best graph processing system...")
@@ -152,13 +152,13 @@ class MainWindow(QMainWindow):
         
         self.progress_section.append_progress("Starting Docker container...")
         stdout, stderr = run_docker_container(system, selected_algorithm, file_path, num_nodes, iterations, source_node)
-        self.progress_section.append_progress("Docker container finished execution.")
+        
 
         if stderr:
             self.progress_section.append_progress(f"Error: {stderr}")
         else:
             self.progress_section.append_progress(f"Result: {stdout}")
-
+        self.progress_section.append_progress("Docker container finished execution.")
         # Assuming the output file is named consistently
         output_file_path = f"docker_manager/output/output_{system.lower()}.txt"
         with open(output_file_path, "r") as output_file:
