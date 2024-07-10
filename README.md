@@ -94,19 +94,19 @@ Stitch-graph-processing/
 * algorithms/
     *connected_components.py
     *page_rank.py
-    * # Other algorithm implementations
+    * ... # Other algorithm implementations
 * utils/
     * file_validation.py # File validation utilities
-    * # Other utility scripts
+    * ... # Other utility scripts
 * models/
      * knn_model.pkl # Pre-trained KNN model
      * scaler.pkl # Scaler for input features
      * label_encoder_workload.pkl # Label encoder for workloads
-     * # Other model-related files
+     * ... # Other model-related files
 * docker/
     * Dockerfile.graphchi # Dockerfile for GraphChi
     * Dockerfile.ligra # Dockerfile for Ligra
-    * # Dockerfiles for other systems
+    * ... # Dockerfiles for other systems
 * README.md # This file
 
 ## Contributing
